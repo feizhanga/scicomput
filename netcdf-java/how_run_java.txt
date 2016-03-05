@@ -1,0 +1,5 @@
+fzhang:/Softdata/JavaProj/testNetCDF/build/classes$ java -cp /Softdata/JavaProj/Jarlibs/netcdfAll-4.6.4.jar:. examples.Simple_xy_ed
+Error: Could not find or load main class examples.Simple_xy_ed
+fzhang:/Softdata/JavaProj/testNetCDF/build/classes$ java -cp /Softdata/JavaProj/Jarlibs/netcdfAll-4.6.4.jar:. examples.Simple_xy_rd
+
+
