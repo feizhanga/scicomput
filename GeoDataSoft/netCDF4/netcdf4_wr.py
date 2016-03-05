@@ -1,7 +1,7 @@
 from netCDF4 import Dataset
 import numpy as np
 
-root_grp = Dataset('test.nc', 'w', format='NETCDF4')
+root_grp = Dataset('test_netcdf4.nc', 'w', format='NETCDF4')
 root_grp.description = 'Example temperature data'
 
 # dimensions
