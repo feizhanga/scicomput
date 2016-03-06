@@ -44,29 +44,34 @@ public class ReadNetcdf {
         }     
         
         ReadNetcdf thisInst= new ReadNetcdf();
-        thisInst.readnetcdf(path2file,x_lon,y_lat);   //readnetcdf(path2file,1684,298);
         
+        String csv= thisInst.readnetcdf(path2file,x_lon,y_lat);   //readnetcdf(path2file,1684,298);
+        
+        System.out.println(csv);
         //thisInst.test_epoch_datetime_zone(1318386508000L);
                 
     }
+    
+    /*
+    read a CF1.6-compliant netcdf file the whole time series at a given lat-long -grid point.
+    this method a new netcdf format where the Data is uint8 (ubyte) water will be 128 as extent
+    The Data(time, lat, lon) 
+    */
+   public String drill_netcdfCF(String path2file, int x_lon, int y_lat) {
+       return "dtimestamp,results";
+   }
 
     /*
-    read a netcdf file the whole time series at a given lat-long point.
-    [fxz547@raijin3 PyLabz]$ head water_20160203_149_-036.nc_new.dril
-    (149.421010, -35.074640): cellId=149_-036 (1684, 298)
-    Drilling into a netcdf file /g/data/u46/fxz547/wofs/extents/water_20160203_149_-036.nc
-    (1787,)
-    548723300.0 2 NO_CONTIGUITY
-    553475717.0 8 TERRAIN_SHADOW
-    556845779.0 2 NO_CONTIGUITY
-    557622998.0 2 NO_CONTIGUITY
-    557623022.0 2 NO_CONTIGUITY
-    558228204.0 2 NO_CONTIGUITY
-    559005422.0 0 DRY
+    read a netcdf file the whole time series at a given lat-long -grid point.
+    this method assume old-drill netcdf format where the Dat is int8 (byte) water will be -128 (not 128)
+    The Data (lat, lon, time) 
     */
-   public void readnetcdf(String path2file, int x_lon, int y_lat) {
-         // Open the file. The ReadOnly parameter tells netCDF we want
-        // read-only access to the file.
+   public String readnetcdf(String path2file, int x_lon, int y_lat) {
+         // Open the netcdf file, get thetime series;
+         // return a String of csv
+         
+        String retCsv= null;
+         
         NetcdfFile dataFile = null;
         
         // Open the file.
@@ -79,7 +84,7 @@ public class ReadNetcdf {
             Variable timeVar = dataFile.findVariable("time");
             if (timeVar == null) {
                 System.out.println("Cant find the Variable time");
-                return ;
+                return null;
             }
 
             int[] time_shape=timeVar.getShape();
@@ -89,7 +94,7 @@ public class ReadNetcdf {
 
             if (dataVar == null) {
                 System.out.println("Cant find the Variable Data");
-                return;
+                return null;
             }else{
                 System.out.println("Number of Time Slices:"+ time_shape[0]);
             }
@@ -128,7 +133,9 @@ public class ReadNetcdf {
 
             for (int i=0; i<point_shape[2]; i++){
                 //System.out.println(timeArray.get(i) +", "+ dataArray.get(0,0,i) );
-                System.out.println( this.convertEpochSec_Datetime(timeArray.get(i)) +", "+ dataArray.get(0,0,i) );
+                //System.out.println( this.convertEpochSec_Datetime(timeArray.get(i)) +", "+ dataArray.get(0,0,i) );
+                retCsv= retCsv +"\n" + 
+                        this.convertEpochSec_Datetime(timeArray.get(i)) +", "+ dataArray.get(0,0,i);
             }
             // The file is closed no matter what by putting inside a try/catch block.
         } catch (java.io.IOException e) {
@@ -147,9 +154,9 @@ public class ReadNetcdf {
             }
         }
 
-        System.out.println("*** SUCCESS reading the netcdf file: " + path2file);
+        //System.out.println("*** SUCCESS reading the netcdf file: " + path2file);
         
-        return;
+        return retCsv;
 
     
     }
