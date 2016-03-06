@@ -90,8 +90,8 @@ class SummarizeExtents(object):
 
         import glob
 
-        #filelist= glob.glob(self.extentdir + "/LS8*.tif") #os.listdir(self.extentdir)
-        filelist= glob.glob(self.extentdir + "/*.tif") #os.listdir(self.extentdir)
+        filelist= glob.glob(self.extentdir + "/LS*_2015*.tif") #os.listdir(self.extentdir)
+        #filelist= glob.glob(self.extentdir + "/*.tif") #os.listdir(self.extentdir)
 
         for afile in filelist:
             print ("processing extent file: " + afile)
