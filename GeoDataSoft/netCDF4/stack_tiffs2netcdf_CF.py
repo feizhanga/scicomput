@@ -160,15 +160,14 @@ def verify_netcdf(extents_dir, ncfile):
             print tiles[i]
             with rasterio.open(tiles[i].filename) as tile_data:
                 tiledata1= tile_data.read(1)[:,:]
+            
+                #print "Data Types? ", type(ncdata) ,type( tiledata1 )
+                #print "shapes?", ncdata.shape, tiledata1.shape
                 
+                diff_sum = numpy.sum(ncdata - tiledata1)
                 
-                print "Data Types? " 
-                print type(ncdata) ,type( tiledata1 )
-
-                print "shapes?"
-                print ncdata.shape, tiledata1.shape
-                
-                print  numpy.sum(ncdata - tiledata1)
+                if (diff_sum != 0):
+                    print ("Found a paie of different images: diff_sum= " , diff_sum )
                 
                 #print  tile_data.read(1)[0:100,0:100] 
 
@@ -184,4 +183,6 @@ if __name__ == "__main__":
 
     create_netcdf_from_dir(extents_dir, out_ncfile)
     
-    verify_netcdf(extents_dir, out_ncfile)
+    print "Completed the NC file creation. Now verifying?......"
+    
+    #verify_netcdf(extents_dir, out_ncfile)
