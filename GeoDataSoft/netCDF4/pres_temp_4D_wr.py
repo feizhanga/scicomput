@@ -22,7 +22,7 @@ import statements at the beginning of this file.
 Jeff Whitaker <jeffrey.s.whitaker@noaa.gov> 20070202
 """
 # the netCDF variable will be nrecs x nlevs x nlats x nlons.
-nrecs = 2; nlevs = 2; nlats = 6; nlons = 12
+nrecs = 2; nlevs = 2; nlats = 100; nlons = 100
 # open a new netCDF file for writing.
 ncfile = Dataset('pres_temp_4D.nc','w') 
 # latitudes and longitudes of grid

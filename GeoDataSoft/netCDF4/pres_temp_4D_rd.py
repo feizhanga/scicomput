@@ -21,7 +21,7 @@ import statements at the beginning of this file.
 
 Jeff Whitaker <jeffrey.s.whitaker@noaa.gov> 20070202
 """
-nrecs = 2; nlevs = 2; nlats = 6; nlons = 12
+nrecs = 2; nlevs = 2; nlats = 100; nlons = 100
 # open netCDF file for reading.
 ncfile = Dataset('pres_temp_4D.nc','r') 
 # latitudes and longitudes of grid
