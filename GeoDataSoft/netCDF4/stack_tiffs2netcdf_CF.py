@@ -6,9 +6,22 @@ import netCDF4
 import rasterio
 from glob import glob
 from datetime import datetime
-from collections import namedtuple
+from collections import namedtuple  #immutable beans
 from osgeo import osr
 
+#water extent pixel value -> disctionary 
+VALUE_DICT = {
+            128: 'WET',
+            -128: 'WET',
+            64:  'CLOUD',
+            32:  'CLOUD_SHADOW',
+            16:  'HIGH_SLOPE',
+            8:   'TERRAIN_SHADOW',
+            4:   'SEA_WATER',
+            2:   'NO_CONTIGUITY',
+            1:   'NO_DATA',
+            0:   'DRY'
+            }
 
 
 TileInfo = namedtuple('TileInfo', ['filename', 'datetime'])
@@ -25,6 +38,8 @@ def parse_filename(filename):
             "\.tif$"
         ),
         filename).groupdict()
+        
+        
     return fields
     
 def make_tileinfo(filename):
@@ -35,7 +50,6 @@ def make_tileinfo(filename):
 
 
 ###############################
-#issue with timechecksize=100? def create_netcdf(filename, tiles, zlib_flag=True, timechunksize0=100):
 def create_netcdf(ncfilename, tiles, zlib_flag=True, timechunksize0=100):
     """create a netCDF-4 ncfilename with Data(time,lat,lon) and CF1.6 metadata convention.
     """
@@ -103,20 +117,10 @@ def create_netcdf(ncfilename, tiles, zlib_flag=True, timechunksize0=100):
         data_var.value_range = [0, 255]
         data_var.values = [0, 2, 4, 8, 16, 32, 64, 128];
         data_var.flag_meanings = "water128 cloud64 cloud_shadow32 high_slope16 terrain_shadow8 over_sea4 no_contiguity2 o_data1 dry0"
-        VALUE_DICT = {
-                    128: 'WET',
-                    -128: 'WET',
-                    64:  'CLOUD',
-                    32:  'CLOUD_SHADOW',
-                    16:  'HIGH_SLOPE',
-                    8:   'TERRAIN_SHADOW',
-                    4:   'SEA_WATER',
-                    2:   'NO_CONTIGUITY',
-                    1:   'NO_DATA',
-                    0:   'DRY'
-                    }
+        data_var.dictionary=str(VALUE_DICT)
 
-        tmp = numpy.empty(dtype='uint8', shape=(timechunksize, height, width ))
+
+        tmp = numpy.empty(dtype='uint8', shape=(timechunksize, height, width )) #chunck of data to be compressed
         #tmp = numpy.empty(dtype='int8', shape=(timechunksize, height, width ))
         for start_idx in range(0, len(tiles), timechunksize):
             #read `timechunksize` worth of data into a temporary array
@@ -142,27 +146,30 @@ def create_netcdf_from_dir(extents_dir, out_ncfile):
 
     create_netcdf(out_ncfile, tiles, zlib_flagv)
 
-def verify_netcdf(extents_dir, out_ncfile):
-    """verify the stacked nc file's pixel values agaist the tiff files
+def verify_netcdf(extents_dir, ncfile):
+    """verify the stacked nc file's pixel values agaist the extents_dir's tiff files
     """
-    netcdf_old=out_ncfile #'/g/data/fk4/wofs/water_f7q/extents/149_-036/LS_WATER_149_-036_1987-05-22T23-08-20.154_2014-03-28T23-47-03.171.nc'
-
+    
     tiles = [make_tileinfo(filename) for filename in glob(os.path.join(extents_dir, '*.tif'))]
     tiles.sort(key=lambda t: t.datetime)
 
-    with netCDF4.Dataset(netcdf_old) as ncobj:
+    with netCDF4.Dataset( ncfile ) as ncobj:
         for i in range(0,len(tiles)):
+            ncdata = ncobj['Data'][i, :,:]
             print ncobj['time'][i]
             print tiles[i]
             with rasterio.open(tiles[i].filename) as tile_data:
-                print "Any difference? " 
-                print numpy.sum(ncobj['Data'][i, :,:])
-                print numpy.sum(tile_data.read(1))
-
-                print type(ncobj['Data'][i, :,:]), type(tile_data.read(1))
-                print ncobj['Data'][i, :,:].shape, tile_data.read(1).shape
+                tiledata1= tile_data.read(1)[:,:]
                 
-                print  numpy.sum(ncobj['Data'][i,:,:] - tile_data.read(1)[:,:])
+                
+                print "Data Types? " 
+                print type(ncdata) ,type( tiledata1 )
+
+                print "shapes?"
+                print ncdata.shape, tiledata1.shape
+                
+                print  numpy.sum(ncdata - tiledata1)
+                
                 #print  tile_data.read(1)[0:100,0:100] 
 
                 #print (ncobj['Data'][:,:,i] == tile_data.read(1)).all()

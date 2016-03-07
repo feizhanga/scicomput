@@ -18,6 +18,6 @@ if __name__ == "__main__":
 
     datafile =sys.argv[1]
 
-    ds_in = gdal.Open(datafile)  
-    metadata = ds_in.GetMetadata()  
+    dsin = gdal.Open(datafile)  
+    metadata = dsin.GetMetadata()  
     print metadata
