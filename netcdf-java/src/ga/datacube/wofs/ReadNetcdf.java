@@ -24,10 +24,10 @@
 package ga.datacube.wofs;
 
 import java.io.IOException;
-import ucar.ma2.ArrayInt;
+//import ucar.ma2.ArrayInt;
 import ucar.ma2.ArrayByte;
 import ucar.ma2.ArrayDouble;
-import ucar.ma2.Index;
+//import ucar.ma2.Index;
 import ucar.ma2.InvalidRangeException;
 import ucar.nc2.NetcdfFile;
 import ucar.nc2.Variable;
@@ -122,6 +122,7 @@ public class ReadNetcdf {
             point_shape[2] = 1;
             point_shape[0] = time_shape[0];  // 1787; //time depth
 
+            //Read() all the data for this Variable and return a memory resident Array.
             ArrayDouble.D1 timeArray = (ArrayDouble.D1) timeVar.read();
 
             ArrayByte.D3 dataArray;
