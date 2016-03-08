@@ -1,17 +1,8 @@
 /*
-   Read a NetCDF4 file containing water extente time-series, a stack of 1 band raster 
-   over a given spatial (tile).
+ * Drill into a NetCDF4 file containing water extent time-series: a stack of 1-band raster files over a given spatial-extent (tile).
 
-   This is an example which reads a NetCDF4 file written by simple_xy_wr.java. 
+ * USAGE: java -jar "/home/547/fxz547/github/scicomput/netcdf-java/dist/netcdf-java.jar" /g/data/u46/fxz547/wofs/extents/149_-036/py_stacked_CF.nc 1708 341 > drill_CF_nc.csv
 
-   Full documentation of the netCDF Java API can be found at:
-   http://www.unidata.ucar.edu/software/netcdf-java/
-
-
-   USAGE: time java -jar "/home/547/fxz547/github/scicomput/netcdf-java/dist/netcdf-java.jar" /g/data/u46/fxz547/wofs/extents/149_-036/py_stacked_CF.nc 1708 341 > drill_CF_nc.csv
-
- */
-/**
  *
  * @author fei.zhang@ga.gov.au
  * 
