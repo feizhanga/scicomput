@@ -98,9 +98,9 @@ def create_netcdf(filename, tiles, zlib_flag=True, timechunksize0=100):
                                       zlib=True,
                                       complevel=1)
         data_var.grid_mapping = 'crs'
-        data_var.valid_range = [0, 255]
-        data_var.flag_masks = [1, 2, 4, 8, 16, 32, 64, 128];
-        data_var.flag_meanings = "water cloud cloud_shadow high_slope terrain_shadow over_sea no_contiguity no_source_data"
+        #data_var.valid_range = [0, 255]
+        #data_var.flag_masks = [1, 2, 4, 8, 16, 32, 64, 128]  #cause gdalinfo seg fault
+ 	data_var.flag_meanings = "water128 cloud64 cloud_shadow32 high_slope16 terrain_shadow8 over_sea4 no_contiguity2 nodata1 dry0"
 
         #tmp = numpy.empty(dtype='uint8', shape=(height, width, timechunksize))
         tmp = numpy.empty(dtype='int8', shape=(height, width, timechunksize))

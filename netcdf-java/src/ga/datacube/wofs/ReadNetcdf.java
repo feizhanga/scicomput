@@ -6,10 +6,20 @@
 
    Full documentation of the netCDF Java API can be found at:
    http://www.unidata.ucar.edu/software/netcdf-java/
+
+
+   USAGE: time java -jar "/home/547/fxz547/github/scicomput/netcdf-java/dist/netcdf-java.jar" /g/data/u46/fxz547/wofs/extents/149_-036/py_stacked_CF.nc 1708 341 > drill_CF_nc.csv
+
  */
 /**
  *
  * @author fei.zhang@ga.gov.au
+ * 
+ * TODO 1 filter out redundant (same-day) observations.
+ * TODO 2 add the description Wet Dry 
+ * TODO 3 Optimize the Drill code
+ * TODO 4 make a new web processing service and deploy it. Keep the old one as it is.
+ * TODO 5 new javascript-powered graphic info summary page
  */
 package ga.datacube.wofs;
 
@@ -244,7 +254,7 @@ public class ReadNetcdf {
         long msec = (long) (1000 * epochsec);
 
         //String date = new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new java.util.Date (msec));
-        String date = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date(msec));
+        String date = new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date(msec));
 
         return date;
     }

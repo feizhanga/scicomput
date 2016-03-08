@@ -114,10 +114,10 @@ def create_netcdf(ncfilename, tiles, zlib_flag=True, timechunksize0=100):
                                       zlib=zlib_flag,
                                       complevel=1) # 1 lest compression, 9 most compression
         data_var.grid_mapping = 'crs'
-        data_var.value_range = [0, 255]
-        data_var.values = [0, 2, 4, 8, 16, 32, 64, 128];
-        data_var.flag_meanings = "water128 cloud64 cloud_shadow32 high_slope16 terrain_shadow8 over_sea4 no_contiguity2 o_data1 dry0"
-        data_var.dictionary=str(VALUE_DICT)
+        # data_var.value_range = [0, 255]
+        # data_var.values = [0, 2, 4, 8, 16, 32, 64, 128];
+        data_var.flag_meanings = "water128 cloud64 cloud_shadow32 high_slope16 terrain_shadow8 over_sea4 no_contiguity2 nodata1 dry0"
+        #data_var.dictionary=str(VALUE_DICT)
 
 
         tmp = numpy.empty(dtype='uint8', shape=(timechunksize, height, width )) #chunck of data to be compressed
