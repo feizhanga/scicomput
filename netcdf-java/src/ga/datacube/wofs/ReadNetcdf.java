@@ -1,7 +1,7 @@
 /*
  * Drill into a NetCDF4 file containing water extent time-series: a stack of 1-band raster files over a given spatial-extent (tile).
 
- * USAGE: java -jar "/home/547/fxz547/github/scicomput/netcdf-java/dist/netcdf-java.jar" /g/data/u46/fxz547/wofs/extents/149_-036/py_stacked_CF.nc 1708 341 > drill_CF_nc.csv
+ * USAGE: java -jar "/path2/dist/netcdf-java.jar" /g/data/u46/fxz547/wofs/extents/149_-036/py_stacked_CF.nc 1708 341 > drill_CF_nc.csv
 
  *
  * @author fei.zhang@ga.gov.au
