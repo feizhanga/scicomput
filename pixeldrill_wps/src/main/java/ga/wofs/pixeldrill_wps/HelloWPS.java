@@ -20,6 +20,8 @@ public class HelloWPS implements GeoServerProcess {
 
    @DescribeResult(name="result", description="output result")
    public String execute(@DescribeParameter(name="name", description="name to return") String name) {
-        return "Hello, " + name;
+        return "<HTML> <H1> Hello </H1>, " + name + " You have successfully accessed a WPS! </HTML>";
+        
+        // return a HTML doc with link to javascript source graphics.
    }
 }
