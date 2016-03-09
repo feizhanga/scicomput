@@ -7,7 +7,7 @@ package ga.wofs.pixeldrill_wps;
 
 /**
  *
- * @author fxz547
+ * @author fei.zhang@ga.gov.au
  */
 
 import org.geotools.process.factory.DescribeParameter;
