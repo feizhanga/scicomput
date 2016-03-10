@@ -8,5 +8,17 @@
 # 3) cd dirty.git ;  git reflog expire --expire=now --all && git gc --prune=now --aggressive
 # 4) git push
 
-java -jar bfg-1.12.8.jar $options 
+echo "$# arguments receieved:   $@" 
+
+if [ $#  -le 2 ]; then
+  echo "********************************************************"
+  echo "*  Usage   $0"
+  echo "*  Usage Example: $0 -B 2 dirtyrepo.git  "
+  echo "*"
+  echo "* ******************************************************"
+  exit 1
+else
+  java -jar bfg-1.12.8.jar "$@"
+fi
+
 

@@ -1,7 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * A simple Hello WPS  http://docs.geoserver.org/stable/en/developer/programming-guide/wps-services/implementing.html
+
+How2Test:
+ *  http://localhost:8080/geoserver/ows?service=wps&version=1.0.0&request=execute&identifier=gs:HelloWPS&RawDataOutput=result&dataInputs=name=John
  */
 package ga.wofs.pixeldrill_wps;
 
