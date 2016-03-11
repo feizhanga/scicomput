@@ -4,7 +4,7 @@
 How2Test:
  *  http://localhost:8080/geoserver/ows?service=wps&version=1.0.0&request=execute&identifier=gs:HelloWPS&RawDataOutput=result&dataInputs=name=John
  */
-package ga.wofs.pixeldrill_wps;
+package ga.wofs.wps;
 
 /**
  *

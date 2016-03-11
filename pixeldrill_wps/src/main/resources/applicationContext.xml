@@ -2,5 +2,5 @@
   <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
   
   <beans>
-    <bean id="helloWPS" class="ga.wofs.pixeldrill_wps.HelloWPS"/>
+    <bean id="helloWPS" class="ga.wofs.wps.HelloWPS"/>
   </beans>
