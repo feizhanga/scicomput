@@ -24,5 +24,6 @@ public class HelloWPS implements GeoServerProcess {
         return "<HTML> <H1> Hello </H1>, " + name + " You have successfully accessed a WPS! </HTML>";
         
         // return a HTML doc with link to javascript source graphics.
+        // see http-header https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol
    }
 }
