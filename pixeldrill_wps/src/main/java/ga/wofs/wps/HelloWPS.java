@@ -21,7 +21,15 @@ public class HelloWPS implements GeoServerProcess {
 
    @DescribeResult(name="result", description="output result")
    public String execute(@DescribeParameter(name="name", description="name to return") String name) {
-        return "<HTML> <H1> Hello </H1>, " + name + " You have successfully accessed a WPS! </HTML>";
+       
+       String HTTP_HEADER="HTTP/1.1 200 OK\n" +
+        "Date: Mon, 14 March 2016 10:38:34 GMT\n" +
+        "Content-Type: text/html; charset=UTF-8\n" +
+        "Content-Encoding: UTF-8\n" +
+        //"Content-Length: 138\n" +
+        "Connection: close\n\n";
+       
+        return HTTP_HEADER +  "<HTML> <H1> Hello </H1>, " + name + " You have successfully accessed a WPS! </HTML>";
         
         // return a HTML doc with link to javascript source graphics.
         // see http-header https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol
