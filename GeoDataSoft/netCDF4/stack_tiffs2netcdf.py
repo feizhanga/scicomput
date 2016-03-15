@@ -116,15 +116,24 @@ def create_netcdf(filename, tiles, zlib_flag=True, timechunksize0=100):
             sys.stdout.flush()
 
 
-def create_netcdf_from_dir(extents_dir, out_ncfile):
-    #zlib_flagv = False 
+def create_netcdf_from_dir(extents_dir, out_ncfile=None):
     zlib_flagv = True 
+    #zlib_flagv = False 
 
     tiles = [make_tileinfo(filename) for filename in glob(os.path.join(extents_dir, '*.tif'))]
     tiles.sort(key=lambda t: t.datetime)
 
+    path2ncfile = out_ncfile
+    if  out_ncfile is None:
+        #makeup a nc file name like LS_WATER_149_-036_1987-05-22T23-08-20_2014-03-28T23-47-03.nc
+        cellid = os.path.basename(os.path.normpath(extents_dir))  #assumed like 149_-036
+        begindt =tiles[0].datetime.isoformat().replace(':','-')
+        enddt = tiles[-1].datetime.isoformat().replace(':','-')
 
-    create_netcdf(out_ncfile, tiles, zlib_flagv)
+        ncfile_name = "LS_WATER_%s_%s_%s.nc"%(cellid,begindt,enddt) 
+        path2ncfile= os.path.join(extents_dir,ncfile_name)
+
+    create_netcdf(path2ncfile, tiles, zlib_flagv)
 
 def verify_netcdf(extents_dir, out_ncfile):
     """verify the stacked nc file's pixel values agaist the tiff files
@@ -157,7 +166,8 @@ if __name__ == "__main__":
     #extents_dir = '/g/data/u46/fxz547/wofs/extents/149_-036'
 
     extents_dir = sys.argv[1]
-    out_ncfile =sys.argv[2]
+    #optional out_ncfile =sys.argv[2]
 
-    create_netcdf_from_dir(extents_dir, out_ncfile)
+    create_netcdf_from_dir(extents_dir)
+    #create_netcdf_from_dir(extents_dir, out_ncfile)
     #verify_netcdf(extents_dir, out_ncfile)

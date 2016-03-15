@@ -101,7 +101,7 @@ def tiffs_drill(cellDirPath, x, y):
             waterExtentFilename = "%s_%s_WATER_%s_%s.tif" % (satellite, sensor, latLong, timestamp) 
             value = getByteValue(join(cellDirPath,filename), x, y)
             #print filename, value, VALUE_NAME[value] 
-            print x, y, dt[:19],  VALUE_NAME[value] 
+            print x, y, dt[:19], value, VALUE_NAME[value] 
     
     
 def netcdf_drill(ncfile, x,y):
