@@ -112,7 +112,7 @@ def create_netcdf(filename, tiles, zlib_flag=True, timechunksize0=100):
                     tmp[:,:,idx-start_idx] = tile_data.read(1)
             #write the data into necdffile
             data_var[:,:,start_idx:end_idx] = tmp[:,:,0:end_idx-start_idx]
-            sys.stdout.write("\r%d out of %d done" % (end_idx, len(tiles)))
+            sys.stdout.write("\r%d out of %d done\r" % (end_idx, len(tiles)))
             sys.stdout.flush()
 
 
