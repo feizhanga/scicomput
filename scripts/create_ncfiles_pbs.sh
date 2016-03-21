@@ -3,7 +3,7 @@
 #PBS -N CreateNCF 
 #PBS -P u46
 #PBS -q express
-#PBS -l walltime=20:10:00,ncpus=2,mem=6GB,jobfs=35GB
+#PBS -l walltime=12:00:00,ncpus=2,mem=6GB,jobfs=35GB
 #PBS -l wd
 #PBS -me
 #PBS -M lpgs@nci.org.au
@@ -18,7 +18,7 @@ EXTENTS_DIR=/g/data/fk4/wofs/water_20160203/extents
 STACKER_PY=/home/547/fxz547/github/scicomput/GeoDataSoft/netCDF4/stack_tiffs2netcdf.py #OLD format NC file
 
 #for acell_dir in `ls -d $EXTENTS_DIR/1[23]*`; do
-for acell_dir in `ls -d $EXTENTS_DIR/14*`; do
+for acell_dir in `ls -d $EXTENTS_DIR/13[789]*`; do
     acell=`basename $acell_dir`  
 
     # $acell_dir = /g/data/u46/wofs/extents/149_-036  AND  $acell is like 149_-036
