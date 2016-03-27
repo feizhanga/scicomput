@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<div id="demo"><h2>WOfS Pixel Drill by AJAX </h2></div>
+
+<button type="button" onclick="loadDoc()">Drill The Time Series</button>
+
+<script>
+function loadDoc() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (xhttp.readyState == 4 && xhttp.status == 200) {
+      //document.getElementById("demo").innerHTML = xhttp.responseText;
+      console.log(xhttp.responseText)
+      document.write(xhttp.responseText)
+
+      // csv: output as a table
+      // csv: plot the graph 
+    }
+  };
+  //xhttp.open("GET", "http://localhost:8080/geoserver/ows?service=wps&version=1.0.0&request=execute&identifier=gs:HelloWPS&RawDataOutput=result&dataInputs=name=John", true);
+
+  xhttp.open("GET", "http://localhost:8080/geoserver/ows?service=wps&version=1.0.0&request=execute&identifier=gs:PixelDrillWPS&RawDataOutput=result&dataInputs=Latitude=-36.2013;Longitude=149.35303;neighbourp=0",true);
+  xhttp.send();
+}
+</script>
+
+</body>
+</html>
