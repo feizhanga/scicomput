@@ -3,4 +3,5 @@
   
   <beans>
     <bean id="helloWPS" class="ga.wofs.wps.HelloWPS"/>
+    <bean id="PixelDrillWPS" class="ga.wofs.wps.PixelDrillWPS"/>
   </beans>

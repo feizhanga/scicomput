@@ -2,6 +2,8 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
+
+http://localhost:8080/geoserver/ows?service=wps&version=1.0.0&request=execute&identifier=gs:PixelDrillWPS&RawDataOutput=result&dataInputs=Latitude=-36.2013;Longitude=149.35303;neighbourp=0
  */
 package ga.wofs.wps;
 
@@ -19,7 +21,7 @@ import org.geoserver.wps.gs.GeoServerProcess;
 
 
 @DescribeProcess(title="wofs_pixel_drill", description="WOfS Pixel Drill wps function to return time series of Wet/Dry observatoin for pixels of interest")
-public class PixelDriller implements GeoServerProcess {
+public class PixelDrillWPS implements GeoServerProcess {
     
    static final String PATH2_EXTENTS_NETCDF="/g/data/u46/wofs/extentsnc"; //   cellid/LS_WATER_cellid.nc 
    
@@ -31,7 +33,7 @@ public class PixelDriller implements GeoServerProcess {
        
        // validation for intNB how many layers of neighbour pixels. 0=No neighbour, 1=9pixels,2=25pixels 3=49pixels. Generally (2*intNB+1)^2
        if( intNB > 3){
-           System.out.println("intNB can be 0,1,2,3");
+           System.out.println("intNB must be in [0,1,2,3]");
        }
        
        // Convert input parameters dbLat and dbLon into cell_id and pixel(y,x)
@@ -42,6 +44,19 @@ public class PixelDriller implements GeoServerProcess {
        // make up a json formatted dataset :{pixel_latlon -> CSV[date, obs]}
        // if only one pixel, then it is only one csv. Generally (2*intNB+1)^2
        
-        return "myjson"; //.toString();
+       
+        //TODO:  ncfile, intx, inty will be determined from the input parameters
+       
+       String ncfile="/Softdata/data/water_extents/149_-036/py_stacked_CF.nc";
+       int xint=1708;
+       int yint=341;
+       
+       ga.wofs.dao.WofsTimeSeries wts= new ga.wofs.dao.WofsTimeSeries(ncfile);
+       
+       String mycsv=wts.retrieveTimeSeries(xint, yint);
+       
+       return mycsv;
+                    
+       // return "myjson"; //.toString();
    }
 }

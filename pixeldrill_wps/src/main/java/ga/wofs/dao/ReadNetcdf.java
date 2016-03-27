@@ -12,7 +12,7 @@
  * TODO 4 make a new web processing service and deploy it. Keep the old one as it is.
  * TODO 5 new javascript-powered graphic info summary page
  */
-package ga.datacube.wofs;
+package ga.wofs.dao;
 
 import java.io.IOException;
 //import ucar.ma2.ArrayInt;
@@ -61,7 +61,7 @@ public class ReadNetcdf {
         
         // Open the netcdf file, get thetime series;
         // return a String of csv = "dtimestamp,results";
-        String retCsv = null;
+        String retCsv = "Date, WOfS_Value";
 
         NetcdfFile dataFile = null;
 

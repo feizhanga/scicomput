@@ -1,5 +1,5 @@
 
-import ga.wofs.dao.PixelTimeSeries;
+import ga.wofs.dao.WofsTimeSeries;
 import java.util.ArrayList;
 
 /*
@@ -24,7 +24,7 @@ public class main {
     public static void main(String[] args) {
 
         String ncfile = "/g/data/u46/fxz547/wofs/extents/149_-036_Y2015";
-        PixelTimeSeries pxts = new PixelTimeSeries(ncfile);
+        WofsTimeSeries pxts = new WofsTimeSeries(ncfile);
 
         ArrayList pntList = new ArrayList<int[]>();
 
